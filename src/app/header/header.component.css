@@ -1,0 +1,21 @@
+.content-header {
+    background-color: #FFFFE0;
+    height: 10%;
+    display: flex;
+    flex-direction: row-reverse;
+    -webkit-box-shadow: 9px 7px 5px rgba(50, 50, 50, 0.77);
+	-moz-box-shadow:    9px 7px 5px rgba(50, 50, 50, 0.77);
+	box-shadow:         9px 7px 5px rgba(50, 50, 50, 0.77);
+}
+
+.info-company {
+    margin-top: 20px;
+    text-shadow: black 0.1em 0.1em 0.2em;
+    margin-right: 10px;
+}
+
+.info-proposal {
+    margin-right: 35%; 
+    margin-top: 20px;
+}
+

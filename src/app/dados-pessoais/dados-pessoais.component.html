@@ -1,0 +1,69 @@
+<form [formGroup]="dadosPessoaisForm" class="dados-pessoais">
+    <div class="fields">
+        <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input 
+                matInput 
+                formControlName="nome" 
+                [ngModel]="nome" 
+                (ngModelChange)="nome = $event.toUpperCase()"  
+                maxlength="60" 
+                minlength="3"
+                required>
+        </mat-form-field>
+
+
+        <mat-form-field>
+            <mat-label>CPF</mat-label>
+            <input 
+                matInput
+                formControlName="cpf" 
+                mask="000.000.000.00"
+                maxlength="14"
+                minlength="3"
+                required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>RG</mat-label>
+            <input 
+                matInput  
+                formControlName="rg" 
+                required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input
+            matInput
+            formControlName="email"
+            maxlength="60"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
+            required>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Data de nascimento</mat-label>
+            <input 
+                matInput 
+                (dateInput)="OnDateChange($event.value)"
+                formControlName="dataNascimento"
+                [matDatepicker]="picker"
+                required>
+            <mat-datepicker-toggle 
+                matSuffix 
+                [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker 
+                #picker>
+            </mat-datepicker>
+          </mat-form-field>
+
+          
+
+
+         
+
+    </div>
+
+</form>

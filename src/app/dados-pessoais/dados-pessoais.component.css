@@ -1,0 +1,11 @@
+.dados-pessoais {
+    display: flex;
+    justify-content: center;
+}
+
+.fields {
+    display: flex;
+    width: 400px;
+    flex-direction: column;
+    margin-top: 10px;
+  }

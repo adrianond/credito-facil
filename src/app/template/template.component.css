@@ -1,0 +1,11 @@
+.content {
+   padding-left: 5em;
+   padding-right: 5em;
+   padding-top: 3em;
+}
+
+.content-card {
+    border-radius: 15px;
+    background-color: #e5e5e5;
+    height: 400px;
+}
