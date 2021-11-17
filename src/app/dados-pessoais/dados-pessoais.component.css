@@ -4,8 +4,7 @@
 }
 
 .fields {
-    display: flex;
+    display: grid;
     width: 400px;
-    flex-direction: column;
     margin-top: 10px;
   }

@@ -24,6 +24,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,9 @@ import { ToastrModule } from 'ngx-toastr';
     MatNativeDateModule,
     NgxMaskModule.forRoot(), 
     ToastrModule.forRoot(),
+    MomentDateModule,
+    MatSelectModule,
+    HttpClientModule
     
   ],
   providers: [],
