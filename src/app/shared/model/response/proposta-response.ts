@@ -1,5 +1,6 @@
-import { Proposta } from "../proposta";
+import { DadosProposta } from "src/app/dados-proposta/dados-proposta";
+
 
 export class PropostaResponse {
-    proposta!: Proposta;
+dadosProposta!: DadosProposta;
 }

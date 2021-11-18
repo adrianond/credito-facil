@@ -1,0 +1,10 @@
+.dados-endereco {
+    display: flex;
+    justify-content: center;
+}
+
+.fields {
+    display: grid;
+    width: 400px;
+    margin-top: 10px;
+  }

@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { ddMMyyyy, yyyyMMdd } from '../shared/utils/date-utils';
 import { ToastrService } from 'ngx-toastr';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { AppDateAdapter, APP_DATE_FORMATS } from '../shared/format-datepicker';
-import { EstadoCivil } from '../shared/estado-civil';
-import { DadosPessoais } from './model/dados-pessoais';
-import { Proposta } from '../shared/model/proposta';
-import { PropostaService } from '../shared/service/proposta-service';
-import { PropostaResponse } from '../shared/model/response/proposta-response';
+import { AppDateAdapter, APP_DATE_FORMATS } from '../../shared/format-datepicker';
+import { EstadoCivil } from '../../shared/estado-civil';
+import { PropostaService } from '../service/proposta-service';
+import { PropostaResponse } from '../../shared/model/response/proposta-response';
 import { Router } from '@angular/router';
+import { DadosProposta } from '../dados-proposta';
+import { DadosPessoais } from './model/dados-pessoais';
 
 
 @Component({
@@ -24,13 +23,13 @@ import { Router } from '@angular/router';
 })
 export class DadosPessoaisComponent implements OnInit {
   nome: String = '';
-  dataNascimento!: string;
   dadosPessoaisForm!: FormGroup;
   estadosCivis!: string[];
   dadosPessoais!: DadosPessoais;
-  proposta!: Proposta;
+  dadosProposta!: DadosProposta;
   selected!: string;
-
+  estadoCivil!: boolean
+  
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -41,7 +40,24 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProposta();
+    //this.getProposta();
+  }
+
+
+  next(): void {
+    this.router.navigateByUrl('/endereco');
+  }
+
+  set value(dadosProposta : DadosProposta) {
+    this.dadosProposta = dadosProposta;
+    setTimeout(() => {
+      this.dadosPessoaisForm.patchValue(dadosProposta.dadosPessoais);
+    }, 0);
+   this.selected = dadosProposta.dadosPessoais.estadoCivil;
+  }
+
+  get value() {
+    return Object.assign((this.dadosProposta || {}), this.dadosPessoaisForm.value);
   }
 
   private initForm(): void {
@@ -64,8 +80,6 @@ export class DadosPessoaisComponent implements OnInit {
     const anoAtualMoment = moment(new Date(), 'YYYY-MM-DD', true);
     if (anoAtualMoment.isBefore(dtNascimentoMoment)) {
       this.toastr.error('Crédito não permitido para menores de 18 anos.')
-    } else {
-      this.dataNascimento = ddMMyyyy(dataNascimento)
     }
   }
 
@@ -74,16 +88,13 @@ export class DadosPessoaisComponent implements OnInit {
   }
 
   enviar() {
-    this.dadosPessoaisForm.value.dataNascimento = this.dataNascimento;
-    this.proposta = this.dadosPessoaisForm.value;
-    this.propostaService.salvarProposta(this.proposta).subscribe((response: PropostaResponse) => {
-      this.proposta = response.proposta;
-    }, (error) => {
+    this.propostaService.salvarProposta(this.value).subscribe((response: PropostaResponse) => {
+    }, () => {
       this.toastr.error('Erro ao salvar proposta de crédito')
     })
-
   }
 
+  
   getProposta() {
     setTimeout(() => {
       this.getMock();
@@ -106,7 +117,7 @@ export class DadosPessoaisComponent implements OnInit {
     let propostaSalva = {
       id: 1,
       dadosPessoais: {
-        nome: 'adriano',
+        nome: 'adriano dantas',
         cpf: '28996612804',
         rg: '278225147',
         email: 'adrianond@yahoo.com.br',
@@ -125,7 +136,7 @@ export class DadosPessoaisComponent implements OnInit {
     }
     this.dadosPessoais = propostaSalva.dadosPessoais;
     this.estadosCivis = [this.dadosPessoais.estadoCivil];
-
+    
     this.dadosPessoaisForm.patchValue({
       nome: this.dadosPessoais.nome,
       cpf: this.dadosPessoais.cpf,
@@ -134,14 +145,16 @@ export class DadosPessoaisComponent implements OnInit {
       dataNascimento: this.dadosPessoais.dataNascimento
     });
     this.selected = this.dadosPessoais.estadoCivil;
-    this.proposta = propostaSalva;
-    console.log(this.proposta)
+    this.dadosProposta = propostaSalva;
+    console.log(this.dadosProposta)
     //this.router.navigateByUrl("/endereco", {
       //state : this.proposta,
     //});
   }
-
+  
 }
+
+
 
 
 

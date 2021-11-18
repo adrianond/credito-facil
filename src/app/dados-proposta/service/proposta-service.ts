@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Proposta } from "../model/proposta";
-import { PropostaResponse } from "../model/response/proposta-response";
+import { PropostaResponse } from "../../shared/model/response/proposta-response";
+import { DadosProposta } from "../dados-proposta";
 
 @Injectable({
   providedIn: "root"
@@ -16,8 +16,8 @@ export class PropostaService {
   ) { }
 
 
-  salvarProposta(proposta: Proposta): Observable<PropostaResponse> {
-    return this.httpClient.post<PropostaResponse>(this.propostaCreditoUrlApi, proposta);
+  salvarProposta(dadosProposta: DadosProposta): Observable<PropostaResponse> {
+    return this.httpClient.post<PropostaResponse>(this.propostaCreditoUrlApi, dadosProposta);
   }
 
   getProposta(id: number): Observable<PropostaResponse> {
